@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ALL USERS</title>
+    <style type="text/css">
+        BODY {
+            background: white;
+        }
+
+        TABLE {
+            border: 2px solid black;
+        }
+
+        TD, TH {
+            padding: 5px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block; /* Строчно-блочный элемент */
+            background: #8C959D; /* Серый цвет фона */
+            color: #fff; /* Белый цвет текста */
+            padding: 3px 3px; /* Поля вокруг текста */
+            text-decoration: none; /* Убираем подчёркивание */
+            border-radius: 3px; /* Скругляем уголки */
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table align="center">
+        <thead>
+        <tr>
+            </br>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>PASSWORD</th>
+            <th>YEAR</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="user:${users}">
+            <tr>
+                <td th:text="${user.getId()}"></td>
+                <td>
+                    <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getUsername()}"></a>
+                </td>
+                <td th:text="${user.getPassword()}"></td>
+                <td th:text="${user.getBirthYear()}"></td>
+                <td><a th:href="@{/{id}/edit(id=${user.getId()})}" class="btn">EDIT</a></td>
+                <td>
+                    <form th:method="DELETE" th:action="@{{id}(id=${user.getId()})}">
+                        <input type="submit" value="DELETE">
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <br/>
+    <hr/>
+    <div align="center">
+    <a align="center" href="/index/new">ADD USER</a>
+    </div>
+    <br/>
+    <a align="left" href="/logout">EXIT</a>
+</div>
+</body>
+</html>
